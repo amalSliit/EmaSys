@@ -1,7 +1,7 @@
 package com.esad.emasys.controller;
 
-import com.esad.emasys.services.impl.EmployeeServiceImpl;
 import com.esad.emasys.model.Employee;
+import com.esad.emasys.services.impl.EmployeeServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -46,9 +46,18 @@ public class EmployeeController {
     @PostMapping("/employees/save")
     public String saveEmployee(@ModelAttribute("empNew") Employee emp, RedirectAttributes redirect) {
         try {
-            empServies.saveEmployee(emp);
-            redirect.addFlashAttribute("message", "Employee "+emp.getFirstName()+" Saved Successfully");
-            redirect.addFlashAttribute("flashType", "success");
+
+            /*
+             * First check email already saved or not
+             * */
+            if (empServies.emailExists(emp.getEmail())) {
+                redirect.addFlashAttribute("message", "Error: Email " + emp.getEmail() + " already exists");
+                redirect.addFlashAttribute("flashType", "error");
+            } else {
+                empServies.saveEmployee(emp);
+                redirect.addFlashAttribute("message", "Employee " + emp.getFirstName() + " Saved Successfully");
+                redirect.addFlashAttribute("flashType", "success");
+            }
         } catch (Exception e) {
             redirect.addFlashAttribute("message", "Save Error : " + e.getMessage());
             redirect.addFlashAttribute("flashType", "error");

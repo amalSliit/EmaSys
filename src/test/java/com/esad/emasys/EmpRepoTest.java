@@ -1,7 +1,7 @@
 package com.esad.emasys;
 
 import com.esad.emasys.model.Employee;
-import com.esad.emasys.services.repository.EmployeeRepo;
+import com.esad.emasys.services.repository.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +13,7 @@ import org.springframework.test.annotation.Rollback;
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @Rollback(false)
 public class EmpRepoTest {
-    @Autowired private EmployeeRepo empRepo;
+    @Autowired private EmployeeRepository empRepo;
 
     @Test
     public void SaveEmployeeTest() {

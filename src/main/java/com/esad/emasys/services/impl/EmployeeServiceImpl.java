@@ -2,7 +2,7 @@ package com.esad.emasys.services.impl;
 
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.services.EmployeeService;
-import com.esad.emasys.services.repository.EmployeeRepo;
+import com.esad.emasys.services.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import java.util.Optional;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
-    private EmployeeRepo empRepo;
+    private EmployeeRepository empRepo;
 
     @Override
     public List<Employee> getAllEmployees() {
@@ -33,5 +33,10 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public void deleteEmployee(Integer id) {
         empRepo.deleteById(id);
+    }
+
+    @Override
+    public boolean emailExists(String email) {
+        return empRepo.findByEmail(email) != null;
     }
 }

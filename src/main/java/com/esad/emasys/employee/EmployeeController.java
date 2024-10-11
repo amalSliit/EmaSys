@@ -45,9 +45,11 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute("empNew") Employee emp, RedirectAttributes redirect) {
         try {
             empServies.saveEmployee(emp);
-            redirect.addFlashAttribute("message", "Employee Saved Successfully");
+            redirect.addFlashAttribute("message", "Employee "+emp.getFirstName()+" Saved Successfully");
+            redirect.addFlashAttribute("flashType", "success");
         } catch (Exception e) {
             redirect.addFlashAttribute("message", "Save Error : " + e.getMessage());
+            redirect.addFlashAttribute("flashType", "error");
         }
         return "redirect:/employees";
     }
@@ -75,8 +77,10 @@ public class EmployeeController {
         try {
             empServies.deleteEmployee(id);
             redirect.addFlashAttribute("message", "Employee #" + id + " has been deleted");
+            redirect.addFlashAttribute("flashType", "success");
         } catch (Exception e) {
             redirect.addFlashAttribute("message", "Delete Error : " + e.getMessage());
+            redirect.addFlashAttribute("flashType", "error");
         }
         return "redirect:/employees";
     }

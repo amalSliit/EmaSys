@@ -44,6 +44,11 @@
             <input type="text" th:field="*{departmentId}" id="departmentId" name="departmentId" placeholder="Enter department ID" minlength="1" maxlength="3" required>
         </div>
 
+        <div>
+            <label for="photoUrl">Photo URL</label>
+            <input type="text" th:field="*{photoUrl}" id="photoUrl" name="photoUrl" placeholder="Photo Url" minlength="10" required>
+        </div>
+
         <!-- Button group -->
         <div class="button-group">
             <button type="submit" class="btn btn-save">Save</button>

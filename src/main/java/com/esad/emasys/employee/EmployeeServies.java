@@ -12,4 +12,8 @@ public class EmployeeServies {
     public List<Employee> getAllEmployees() {
         return (List<Employee>) empRepo.findAll();
     }
+
+    public void save(Employee emp) {
+        empRepo.save(emp);
+    }
 }

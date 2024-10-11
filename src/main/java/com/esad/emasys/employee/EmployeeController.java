@@ -34,6 +34,7 @@ public class EmployeeController {
         Employee emp = new Employee();
         model.addAttribute("empNew", emp);//th:object
         model.addAttribute("pageTitle", "Add Employee");
+
         return "new_employee"; //this is the html file name
     }
 
@@ -41,8 +42,13 @@ public class EmployeeController {
      * save emp button action from the Show add employee form
      * */
     @PostMapping("/employees/save")
-    public String saveEmployee(@ModelAttribute("empNew") Employee emp) {
-        empServies.saveEmployee(emp);
+    public String saveEmployee(@ModelAttribute("empNew") Employee emp, RedirectAttributes redirect) {
+        try {
+            empServies.saveEmployee(emp);
+            redirect.addFlashAttribute("message", "Employee Saved Successfully");
+        } catch (Exception e) {
+            redirect.addFlashAttribute("message", "Save Error : " + e.getMessage());
+        }
         return "redirect:/employees";
     }
 
@@ -68,7 +74,7 @@ public class EmployeeController {
     public String deleteEmployee(@PathVariable("id") Integer id, RedirectAttributes redirect) {
         try {
             empServies.deleteEmployee(id);
-            redirect.addFlashAttribute("message", "Employee " + id + " has been deleted");
+            redirect.addFlashAttribute("message", "Employee #" + id + " has been deleted");
         } catch (Exception e) {
             redirect.addFlashAttribute("message", "Delete Error : " + e.getMessage());
         }

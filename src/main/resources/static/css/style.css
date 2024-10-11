@@ -72,3 +72,13 @@ tr:nth-child(even) {
 }
 
 /*header end*/
+
+.flash-message {
+    background-color: #f8d7da; /* Light red background */
+    color: #721c24; /* Dark red text */
+    border: 1px solid #f5c6cb;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    text-align: center;
+}

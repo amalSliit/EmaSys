@@ -20,6 +20,7 @@
 <!-- Main content with form -->
 <div class="main-container">
     <form th:action="@{/employees/save}" method="post" th:object="${empNew}">
+        <input type="hidden" th:field="*{id}"/>
         <div>
             <label for="email">Email:</label>
             <input type="email" th:field="*{email}" id="email" name="email" placeholder="Enter email" minlength="14" maxlength="30" required>

@@ -44,15 +44,17 @@ public class EmployeeController {
      * save emp button action from the Show add employee form
      * */
     @PostMapping("/employees/save")
-    public String saveEmployee(@ModelAttribute("empNew") Employee emp, RedirectAttributes redirect) {
+    public String saveEmployee(@ModelAttribute("empNew") Employee emp, RedirectAttributes redirect, Model model) {
         try {
 
             /*
              * First check email already saved or not
              * */
             if (empServies.emailExists(emp.getEmail())) {
+                model.addAttribute("pageTitle", "Add Employee");
                 redirect.addFlashAttribute("message", "Error: Email " + emp.getEmail() + " already exists");
                 redirect.addFlashAttribute("flashType", "error");
+                return "new_employee";
             } else {
                 empServies.saveEmployee(emp);
                 redirect.addFlashAttribute("message", "Employee " + emp.getFirstName() + " Saved Successfully");

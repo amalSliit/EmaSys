@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title th:text="${pageTitle}"></title>
-    <link rel="stylesheet" th:href="@{/css/style_new_emp.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body>
@@ -15,6 +15,11 @@
     <a th:href="@{/employees}">
         <span class="material-icons">home</span> Home
     </a>
+</div>
+
+<!-- Flash message -->
+<div th:if="${message}" class="flash-message" th:classappend="${flashType}">
+    <p th:text="${message}"></p>
 </div>
 
 <!-- Main content with form -->

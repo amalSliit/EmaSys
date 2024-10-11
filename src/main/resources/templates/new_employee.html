@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>New Employee</title>
+    <title th:text="${pageTitle}"></title>
     <link rel="stylesheet" th:href="@{/css/style_new_emp.css}">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -11,7 +11,7 @@
 
 <!-- Header with centered title and home button -->
 <div class="header-container">
-    <h1>New Employee</h1>
+    <h1 th:text="${pageTitle}"></h1>
     <a th:href="@{/employees}">
         <span class="material-icons">home</span> Home
     </a>

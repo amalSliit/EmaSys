@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmployeeServies {
@@ -13,7 +14,12 @@ public class EmployeeServies {
         return (List<Employee>) empRepo.findAll();
     }
 
-    public void save(Employee emp) {
+    public void saveEmployee(Employee emp) {
         empRepo.save(emp);
+    }
+
+    public Employee getEmployee(Integer id) {
+        Optional<Employee> emp = empRepo.findById(id);
+        return emp.orElse(null);
     }
 }

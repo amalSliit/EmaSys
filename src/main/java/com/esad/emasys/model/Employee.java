@@ -1,4 +1,4 @@
-package com.esad.emasys.employee;
+package com.esad.emasys.model;
 
 import jakarta.persistence.*;
 

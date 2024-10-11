@@ -1,4 +1,4 @@
-package com.esad.emasys;
+package com.esad.emasys.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

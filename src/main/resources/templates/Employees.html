@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Employees</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
@@ -12,14 +13,22 @@
     <tr>
         <th>#Id</th>
         <th>First Name</th>
+        <th>Last Name</th>
         <th>Email</th>
+        <th>Dept. #ID</th>
+        <th>Pos. #ID</th>
+        <th>Profile</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="emp : ${empList}">
         <td th:text="${emp.id}"></td>
         <td th:text="${emp.firstName}"></td>
+        <td th:text="${emp.lastName}"></td>
         <td th:text="${emp.email}"></td>
+        <td th:text="${emp.departmentId}"></td>
+        <td th:text="${emp.positionId}"></td>
+        <td th:text="${emp.photoUrl}"></td>
     </tr>
     </tbody>
 </table>

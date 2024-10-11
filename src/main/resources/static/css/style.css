@@ -33,9 +33,42 @@ tr:nth-child(even) {
     background-color: #f9f9f9;
 }
 
+/*round profile image*/
 .profile-img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
 }
+
+/*round profile image end*/
+
+/*header*/
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.header-container h1 {
+    margin: 0;
+    text-align: center;
+    flex-grow: 1;
+}
+
+.add-employee-btn {
+    text-decoration: none;
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.add-employee-btn:hover {
+    background-color: #45a049;
+}
+
+/*header end*/

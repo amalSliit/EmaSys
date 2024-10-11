@@ -8,7 +8,14 @@
 </head>
 <body>
 
-<h1>Employees</h1>
+
+<div class="header-container">
+    <h1>Employees</h1>
+    <a th:href="@{/employees/new}" class="add-employee-btn">
+        <span class="material-icons">person_add</span> Add Employee
+    </a>
+</div>
+
 <table>
     <thead>
     <tr>
@@ -34,8 +41,8 @@
             <img th:src="@{${emp.photoUrl}}" alt="Profile" class="profile-img"/>
         </td>
         <td>
-            <a th:href="@{/employees/{id}(id=${emp.id})}"><span class="material-icons">edit</span></a>
-            <a th:href="@{/employees/{id}(id=${emp.id})}"><span class="material-icons">delete</span></a>
+            <a th:href="@{'/employees/edit/'+${emp.id}}"><span class="material-icons">edit</span></a>
+            <a th:href="@{'/employees/delete/'+${emp.id}}"><span class="material-icons">delete</span></a>
         </td>
     </tr>
     </tbody>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New Employee</title>
+    <link rel="stylesheet" th:href="@{/css/style_new_emp.css}">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+</head>
+<body>
+
+
+<!-- Header with centered title and home button -->
+<div class="header-container">
+    <h1>New Employee</h1>
+    <a th:href="@{/employees}">
+        <span class="material-icons">home</span> Home
+    </a>
+</div>
+
+<!-- Main content with form -->
+<div class="main-container">
+    <form th:action="@{/employees/save}" method="post">
+        <div>
+            <label for="firstName">First Name:</label>
+            <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
+        </div>
+
+        <div>
+            <label for="lastName">Last Name:</label>
+            <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+        </div>
+
+        <div>
+            <label for="positionId">Position ID:</label>
+            <input type="text" id="positionId" name="positionId" placeholder="Enter position ID" required>
+        </div>
+
+        <div>
+            <label for="departmentId">Department ID:</label>
+            <input type="text" id="departmentId" name="departmentId" placeholder="Enter department ID" required>
+        </div>
+
+        <div>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter email" required>
+        </div>
+
+        <!-- Button group -->
+        <div class="button-group">
+            <button type="reset" class="btn btn-clear">Clear</button>
+            <button type="submit" class="btn btn-save">Save</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -18,4 +18,11 @@ public class EmployeeController {
         model.addAttribute("empList", empList);
         return "employees";
     }
+
+    @GetMapping("/employees/new")// this is button link name
+    public String addEmployee(Model model) {
+        Employee emp = new Employee();
+        model.addAttribute("empNew", emp);
+        return "new_employee"; //this is the html file name
+    }
 }

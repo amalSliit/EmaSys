@@ -50,21 +50,38 @@ public class EmployeeController {
             /*
              * First check email already saved or not
              * */
-            if (empServies.emailExists(emp.getEmail())) {
-                model.addAttribute("pageTitle", "Add Employee");
-                redirect.addFlashAttribute("message", "Error: Email " + emp.getEmail() + " already exists");
-                redirect.addFlashAttribute("flashType", "error");
-                return "new_employee";
+            boolean isAllowSave = true;
+
+            if (emp.getId() != null) {
+                /*
+                * id not null mean update request, so need to check email exists
+                * */
+                if (empServies.getEmployee(emp.getId()).getEmail().equals(emp.getEmail())) {
+                    isAllowSave = true;
+                } else if (empServies.emailExists(emp.getEmail())) {
+                    isAllowSave = false;
+                }
             } else {
+                isAllowSave = !empServies.emailExists(emp.getEmail());
+            }
+
+
+            if (isAllowSave) {
                 empServies.saveEmployee(emp);
                 redirect.addFlashAttribute("message", "Employee " + emp.getFirstName() + " Saved Successfully");
                 redirect.addFlashAttribute("flashType", "success");
+                return "redirect:/employees";
+            } else {
+                model.addAttribute("pageTitle", "Add Employee");
+                model.addAttribute("message", "Email " + emp.getEmail() + " already exists");
+                model.addAttribute("flashType", "error");
+                return "new_employee";
             }
         } catch (Exception e) {
             redirect.addFlashAttribute("message", "Save Error : " + e.getMessage());
             redirect.addFlashAttribute("flashType", "error");
+            return "redirect:/employees";
         }
-        return "redirect:/employees";
     }
 
     /*

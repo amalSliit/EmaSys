@@ -63,5 +63,15 @@
     </form>
 </div>
 
+<script>
+    // Auto-hide flash message after 5 seconds
+    setTimeout(function() {
+        const flashMessage = document.querySelector('.flash-message');
+        if (flashMessage) {
+            flashMessage.style.display = 'none';
+        }
+    }, 5000); // 5000ms = 5 seconds
+</script>
+
 </body>
 </html>

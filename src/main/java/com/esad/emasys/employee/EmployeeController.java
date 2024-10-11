@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 public class EmployeeController {
     @Autowired
-    private EmployeeServies empServies;
+    private EmployeeServiceImpl empServies;
 
     /*
      * Display all employee with information

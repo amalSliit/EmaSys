@@ -22,7 +22,7 @@ public class EmployeeController {
     @GetMapping("/employees/new")// this is button link name
     public String addEmployee(Model model) {
         Employee emp = new Employee();
-        model.addAttribute("empNew", emp);
+        model.addAttribute("empNew", emp);//th:object
         return "new_employee"; //this is the html file name
     }
 }

@@ -60,4 +60,18 @@ public class EmployeeController {
             return "redirect:/employees";
         }
     }
+
+    /*
+     * Delete profile
+     * */
+    @GetMapping("/employees/delete/{id}")
+    public String deleteEmployee(@PathVariable("id") Integer id, RedirectAttributes redirect) {
+        try {
+            empServies.deleteEmployee(id);
+            redirect.addFlashAttribute("message", "Employee " + id + " has been deleted");
+        } catch (Exception e) {
+            redirect.addFlashAttribute("message", "Delete Error : " + e.getMessage());
+        }
+        return "redirect:/employees";
+    }
 }

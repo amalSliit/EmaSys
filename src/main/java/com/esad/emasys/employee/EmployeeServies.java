@@ -22,4 +22,8 @@ public class EmployeeServies {
         Optional<Employee> emp = empRepo.findById(id);
         return emp.orElse(null);
     }
+
+    public void deleteEmployee(Integer id) {
+        empRepo.deleteById(id);
+    }
 }

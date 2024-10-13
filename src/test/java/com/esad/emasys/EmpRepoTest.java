@@ -20,10 +20,9 @@ public class EmpRepoTest {
         Employee newEmp = new Employee();
         newEmp.setFirstName("John");
         newEmp.setLastName("Smith");
-        newEmp.setEmail("john.smith@gmail.com");
         newEmp.setPhotoUrl("https://www.google.com/photo?aslksdksdk");
-        newEmp.setDepartmentId(201);
-        newEmp.setPositionId(101);
+        newEmp.setDepartmentId(1);
+        newEmp.setPositionId(1);
 
         Employee savedEmp = empRepo.save(newEmp);
 

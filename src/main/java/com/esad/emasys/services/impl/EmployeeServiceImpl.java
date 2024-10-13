@@ -34,9 +34,4 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void deleteEmployee(Integer id) {
         empRepo.deleteById(id);
     }
-
-    @Override
-    public boolean emailExists(String email) {
-        return empRepo.findByEmail(email) != null;
-    }
 }

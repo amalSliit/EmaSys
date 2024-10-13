@@ -13,6 +13,4 @@ public interface EmployeeService {
 
     public void deleteEmployee(Integer id);
 
-    public boolean emailExists(String email);
-
 }

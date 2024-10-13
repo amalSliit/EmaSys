@@ -1,7 +1,11 @@
 package com.esad.emasys.controller;
 
 import com.esad.emasys.model.Employee;
+import com.esad.emasys.model.User;
+import com.esad.emasys.services.impl.DepartmentService;
 import com.esad.emasys.services.impl.EmployeeServiceImpl;
+import com.esad.emasys.services.impl.PositionService;
+import com.esad.emasys.services.impl.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +21,15 @@ import java.util.List;
 public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl empServies;
+
+    @Autowired
+    private DepartmentService departmentService;
+
+    @Autowired
+    private PositionService positionService;
+
+    @Autowired
+    private UserService userService;
 
     /*
      * Display all employee with information
@@ -35,6 +48,8 @@ public class EmployeeController {
     public String showAddEmployee(Model model) {
         Employee emp = new Employee();
         model.addAttribute("empNew", emp);//th:object
+        model.addAttribute("departments", departmentService.getAllDepartments());
+        model.addAttribute("positions", positionService.getAllPositions());
         model.addAttribute("pageTitle", "Add Employee");
 
         return "new_employee"; //this is the html file name
@@ -47,33 +62,27 @@ public class EmployeeController {
     public String saveEmployee(@ModelAttribute("empNew") Employee emp, RedirectAttributes redirect, Model model) {
         try {
 
-            /*
-             * First check email already saved or not
-             * */
-            boolean isAllowSave = true;
 
-            if (emp.getId() != null) {
-                /*
-                * id not null mean update request, so need to check email exists
-                * */
-                if (empServies.getEmployee(emp.getId()).getEmail().equals(emp.getEmail())) {
-                    isAllowSave = true;
-                } else if (empServies.emailExists(emp.getEmail())) {
-                    isAllowSave = false;
-                }
-            } else {
-                isAllowSave = !empServies.emailExists(emp.getEmail());
-            }
+            // Check if the user exists or create a new user
+            User user = userService.findByEmail(emp.getUser().getEmail());
 
 
-            if (isAllowSave) {
+            if (user == null) {
+                user = new User();
+                user.setEmail(emp.getUser().getEmail());
+                user.setPassword("Google");
+                user.setRole(User.Role.EMPLOYEE);
+                userService.save(user);
+
+                emp.setUser(user); // Assign user to employee
+
                 empServies.saveEmployee(emp);
                 redirect.addFlashAttribute("message", "Employee " + emp.getFirstName() + " Saved Successfully");
                 redirect.addFlashAttribute("flashType", "success");
                 return "redirect:/employees";
             } else {
                 model.addAttribute("pageTitle", "Add Employee");
-                model.addAttribute("message", "Email " + emp.getEmail() + " already exists");
+                model.addAttribute("message", "Email " + emp.getUser().getEmail() + " already exists");
                 model.addAttribute("flashType", "error");
                 return "new_employee";
             }

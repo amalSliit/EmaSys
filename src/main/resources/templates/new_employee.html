@@ -25,11 +25,8 @@
 <!-- Main content with form -->
 <div class="main-container">
     <form th:action="@{/employees/save}" method="post" th:object="${empNew}">
-        <input type="hidden" th:field="*{id}"/>
-        <div>
-            <label for="email">Email:</label>
-            <input type="email" th:field="*{email}" id="email" name="email" placeholder="Enter email" minlength="14" maxlength="30" required>
-        </div>
+
+
         <div>
             <label for="firstName">First Name:</label>
             <input type="text" th:field="*{firstName}" id="firstName" name="firstName" placeholder="Enter first name" minlength="3" maxlength="10" required>
@@ -41,14 +38,26 @@
         </div>
 
         <div>
-            <label for="positionId">Position ID:</label>
-            <input type="text" th:field="*{positionId}" id="positionId" name="positionId" placeholder="Enter position ID" minlength="1" maxlength="3" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" th:field="*{user.email}" required />
         </div>
 
         <div>
-            <label for="departmentId">Department ID:</label>
-            <input type="text" th:field="*{departmentId}" id="departmentId" name="departmentId" placeholder="Enter department ID" minlength="1" maxlength="3" required>
+            <label for="department.id">Department:</label>
+            <select id="department.id" th:field="*{department.id}" required>
+                <option th:each="department : ${departments}" th:value="${department.id}" th:text="${department.name}">
+                </option>
+            </select>
         </div>
+
+        <div>
+            <label for="position.id">Position:</label>
+            <select id="position.id" th:field="*{position.id}" required>
+                <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.title}">
+                </option>
+            </select>
+        </div>
+
 
         <div>
             <label for="photoUrl">Photo URL</label>

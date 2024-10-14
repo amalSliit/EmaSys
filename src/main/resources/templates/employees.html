@@ -26,6 +26,7 @@
         <th>Emp: ID</th>
         <th>First Name</th>
         <th>Last Name</th>
+        <th>Email</th>
         <th>Profile</th>
         <th>Action</th>
     </tr>
@@ -35,6 +36,7 @@
         <td th:text="${emp.id}"></td>
         <td th:text="${emp.firstName}"></td>
         <td th:text="${emp.lastName}"></td>
+        <td th:text="${emp.user.email}"></td>
         <td>
             <img th:src="@{${emp.photoUrl}}" alt="Profile" class="profile-img"/>
         </td>
@@ -53,7 +55,7 @@
         if (flashMessage) {
             flashMessage.style.display = 'none';
         }
-    }, 5000); // 5000ms = 5 seconds
+    }, 15000); // 5000ms = 5 seconds
 </script>
 
 </body>

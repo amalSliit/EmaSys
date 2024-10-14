@@ -26,6 +26,7 @@
 <div class="main-container">
     <form th:action="@{/employees/save}" method="post" th:object="${empNew}">
 
+        <input type="hidden" id="id" name="id"  th:field="*{id}"/>
 
         <div>
             <label for="firstName">First Name:</label>

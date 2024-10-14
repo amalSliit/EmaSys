@@ -2,8 +2,6 @@ package com.esad.emasys.model;
 
 import jakarta.persistence.*;
 
-import jakarta.persistence.*;
-
 @Entity
 @Table(name = "employee")
 public class Employee {
@@ -18,10 +16,10 @@ public class Employee {
     @Column(nullable = false, name = "last_name")
     private String lastName;
 
-    @Column(nullable = false, name = "photo_url")
+    @Column(nullable = false, name = "photo_url", length = 512) // Set length to 512 or more
     private String photoUrl;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

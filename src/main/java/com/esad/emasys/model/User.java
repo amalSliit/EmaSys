@@ -11,7 +11,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false, unique = true) // Ensure the email is unique
     private String email;
 
     private String password; // Nullable for Google login users
@@ -31,7 +31,9 @@ public class User {
     }
 
     public enum Role {
-        ADMIN, MANAGER, EMPLOYEE
+        ADMIN,
+        EMPLOYEE,
+        MANAGER
     }
 
     public int getId() {

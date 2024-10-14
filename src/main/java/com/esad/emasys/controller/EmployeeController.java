@@ -68,10 +68,11 @@ public class EmployeeController {
             boolean isUpdate = false;
 
             User existUser = userService.findByEmail(emp.getUser().getEmail());
-            Employee existEmp = empServies.getEmployee(emp.getId());
+
 
             if (emp.getId() != null) {
                 //Update employee
+                Employee existEmp = empServies.getEmployee(emp.getId());
 
                 //Check emp email exist or not
                 if (existUser != null) {
@@ -87,6 +88,8 @@ public class EmployeeController {
                         // Prevent saving new employee if email is already associated with another user
                         model.addAttribute("pageTitle", "Edit Employee");
                         model.addAttribute("message", "Email " + emp.getUser().getEmail() + " already exists");
+                        model.addAttribute("departments", departmentService.getAllDepartments());
+                        model.addAttribute("positions", positionService.getAllPositions());
                         model.addAttribute("flashType", "error");
                         return "new_employee";
                     }
@@ -172,9 +175,11 @@ public class EmployeeController {
                     empServies.saveEmployee(emp);
                 } else {
                     model.addAttribute("empNew", emp);
-                    model.addAttribute("departments", emp.getDepartment());
-                    model.addAttribute("positions", emp.getPosition());
+                    model.addAttribute("departments", departmentService.getAllDepartments());
+                    model.addAttribute("positions", positionService.getAllPositions());
                     model.addAttribute("pageTitle", "Add Employee");
+                    model.addAttribute("message", "Email " + emp.getUser().getEmail() + " already exists");
+                    model.addAttribute("flashType", "error");
                     return "new_employee";
                 }
             }

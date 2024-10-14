@@ -137,10 +137,25 @@ public class EmployeeController {
             emp.setUser(userNew);*/
 
 
-            if (isUpdate) {// Update the existing user's information if needed
-                userService.save(existUser);
-                emp.setUser(existUser);
-                empServies.saveEmployee(emp);
+            if (isUpdate) {
+                // Update the existing user's information if needed
+
+                if(existUser != null) {
+                    userService.save(existUser);
+                    emp.setUser(existUser);
+                    empServies.saveEmployee(emp);
+                }else{
+                    //new email
+                    User updateUser = new User();
+                    updateUser.setEmail(emp.getUser().getEmail());
+                    updateUser.setPassword("Google");
+                    updateUser.setRole(User.Role.EMPLOYEE);
+
+                    userService.save(updateUser);
+                    emp.setUser(updateUser);
+                    empServies.saveEmployee(emp);
+                }
+
             } else {
                 if (isNewEmail) {
                     // Create new user

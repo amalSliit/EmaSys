@@ -76,14 +76,11 @@ public class EmployeeController {
 
                 //Check emp email exist or not
                 if (existUser != null) {
-                    System.out.println("myReg : "+existUser.getId() +" "+existEmp.getUser().getId());
                     //having an email, so check it's beloing with tis user
                     if (existUser.getId() == existEmp.getUser().getId()) {
                         // yes email is belongs to update user
                         isUpdate = true;
-                        System.out.println("myReg : Update user email");
                     } else {
-                        System.out.println("myReg : Update email exists");
                         //email already exist
                         // Prevent saving new employee if email is already associated with another user
                         model.addAttribute("pageTitle", "Edit Employee");
@@ -96,48 +93,10 @@ public class EmployeeController {
                 } else {
                     //new email
                     isUpdate = true;
-                    System.out.println("myReg : Update new email ");
                 }
             } else {
                 isNewEmail = existUser == null;
-                System.out.println("myReg : Add email "+isNewEmail);
             }
-
-            // Check if the user exists
-            /*User user = userService.findByEmail(emp.getUser().getEmail());
-            boolean isUpdate = emp.getId() != null;
-
-            if (user == null) {
-                if (emp.getUser().getId() != 0 && user.getId() == emp.getUser().getId()) {
-                    isUpdate = true;
-                }
-            } else if (!isUpdate) {
-                // Prevent saving new employee if email is already associated with another user
-                model.addAttribute("pageTitle", "Add Employee");
-                model.addAttribute("message", "Email " + emp.getUser().getEmail() + " already exists");
-                model.addAttribute("flashType", "error");
-                return "new_employee";
-            }
-
-            // Update user details if updating
-            if (isUpdate) {
-                if (user == null) {
-                    user = new User();
-                    user.setEmail(emp.getUser().getEmail());
-                    user.setPassword("Google");
-                    user.setRole(User.Role.EMPLOYEE);
-                    userService.save(user);
-                }
-                emp.setUser(user);
-            }*/
-
-            /*User userNew = new User();
-            userNew.setEmail(emp.getUser().getEmail());
-            userNew.setPassword("Google");
-            userNew.setRole(User.Role.EMPLOYEE);
-            userService.save(userNew);
-
-            emp.setUser(userNew);*/
 
 
             if (isUpdate) {

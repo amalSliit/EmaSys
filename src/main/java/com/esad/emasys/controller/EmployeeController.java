@@ -63,11 +63,47 @@ public class EmployeeController {
     @PostMapping("/employees/save")
     public String saveEmployee(@ModelAttribute("empNew") Employee emp, RedirectAttributes redirect, Model model) {
         try {
-            // Check if the user exists
-            User user = userService.findByEmail(emp.getUser().getEmail());
-            boolean isUpdate = emp.getId() != null;
 
-            /*boolean isAllowSave = true;
+            boolean isNewEmail = false;
+            boolean isUpdate = false;
+
+            if (emp.getId() != null) {
+                //Update employee
+
+                //Check emp email exist or not
+                User existUser = userService.findByEmail(emp.getUser().getEmail());
+                Employee existEmp = empServies.getEmployee(emp.getId());
+
+                if (existUser != null) {
+                    System.out.println("myReg : "+existUser.getId() +" "+existEmp.getUser().getId());
+                    //having an email, so check it's beloing with tis user
+                    if (existUser.getId() == existEmp.getUser().getId()) {
+                        // yes email is belongs to update user
+                        isUpdate = true;
+                        System.out.println("myReg : Update user email");
+                    } else {
+                        System.out.println("myReg : Update email exists");
+                        //email already exist
+                        // Prevent saving new employee if email is already associated with another user
+                        model.addAttribute("pageTitle", "Edit Employee");
+                        model.addAttribute("message", "Email " + emp.getUser().getEmail() + " already exists");
+                        model.addAttribute("flashType", "error");
+                        return "new_employee";
+                    }
+                } else {
+                    //new email
+                    isUpdate = true;
+                    System.out.println("myReg : Update new email ");
+                }
+            } else {
+                User existUser = userService.findByEmail(emp.getUser().getEmail());
+                isNewEmail = existUser == null;
+                System.out.println("myReg : Add email "+isNewEmail);
+            }
+
+            // Check if the user exists
+            /*User user = userService.findByEmail(emp.getUser().getEmail());
+            boolean isUpdate = emp.getId() != null;
 
             if (user == null) {
                 if (emp.getUser().getId() != 0 && user.getId() == emp.getUser().getId()) {
@@ -102,27 +138,41 @@ public class EmployeeController {
             emp.setUser(userNew);*/
 
 
-            User existingUser = userService.findByEmail(emp.getUser().getEmail());
-
-            if (existingUser != null) {
+            if (isUpdate) {
                 // Update the existing user's information if needed
 
+
+                User existUser = userService.findByEmail(emp.getUser().getEmail());
+                Employee existEmp = empServies.getEmployee(emp.getId());
+
+                /*System.out.println("myReg : Update existingUser "+existingUser.getEmail());
+                System.out.println("myReg : Update emp "+emp.getUser().getEmail());*/
+
+                User existingUser = userService.findByEmail(emp.getUser().getEmail());
                 userService.save(existingUser);
                 emp.setUser(existingUser);
                 empServies.saveEmployee(emp);
             } else {
-                // Create new user
-                User userNew = new User();
-                userNew.setEmail(emp.getUser().getEmail());
-                userNew.setPassword("Google");
-                userNew.setRole(User.Role.EMPLOYEE);
+                if (isNewEmail) {
+                    // Create new user
+                    User userNew = new User();
+                    userNew.setEmail(emp.getUser().getEmail());
+                    userNew.setPassword("Google");
+                    userNew.setRole(User.Role.EMPLOYEE);
 
-                //save user info
-                userService.save(userNew);
+                    //save user info
+                    userService.save(userNew);
 
-                //save employee info
-                emp.setUser(userNew);
-                empServies.saveEmployee(emp);
+                    //save employee info
+                    emp.setUser(userNew);
+                    empServies.saveEmployee(emp);
+                } else {
+                    model.addAttribute("empNew", emp);
+                    model.addAttribute("departments", emp.getDepartment());
+                    model.addAttribute("positions", emp.getPosition());
+                    model.addAttribute("pageTitle", "Add Employee");
+                    return "new_employee";
+                }
             }
 
 

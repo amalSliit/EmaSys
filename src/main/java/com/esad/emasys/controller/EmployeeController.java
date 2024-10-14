@@ -67,13 +67,13 @@ public class EmployeeController {
             boolean isNewEmail = false;
             boolean isUpdate = false;
 
+            User existUser = userService.findByEmail(emp.getUser().getEmail());
+            Employee existEmp = empServies.getEmployee(emp.getId());
+
             if (emp.getId() != null) {
                 //Update employee
 
                 //Check emp email exist or not
-                User existUser = userService.findByEmail(emp.getUser().getEmail());
-                Employee existEmp = empServies.getEmployee(emp.getId());
-
                 if (existUser != null) {
                     System.out.println("myReg : "+existUser.getId() +" "+existEmp.getUser().getId());
                     //having an email, so check it's beloing with tis user
@@ -96,7 +96,6 @@ public class EmployeeController {
                     System.out.println("myReg : Update new email ");
                 }
             } else {
-                User existUser = userService.findByEmail(emp.getUser().getEmail());
                 isNewEmail = existUser == null;
                 System.out.println("myReg : Add email "+isNewEmail);
             }
@@ -138,19 +137,9 @@ public class EmployeeController {
             emp.setUser(userNew);*/
 
 
-            if (isUpdate) {
-                // Update the existing user's information if needed
-
-
-                User existUser = userService.findByEmail(emp.getUser().getEmail());
-                Employee existEmp = empServies.getEmployee(emp.getId());
-
-                /*System.out.println("myReg : Update existingUser "+existingUser.getEmail());
-                System.out.println("myReg : Update emp "+emp.getUser().getEmail());*/
-
-                User existingUser = userService.findByEmail(emp.getUser().getEmail());
-                userService.save(existingUser);
-                emp.setUser(existingUser);
+            if (isUpdate) {// Update the existing user's information if needed
+                userService.save(existUser);
+                emp.setUser(existUser);
                 empServies.saveEmployee(emp);
             } else {
                 if (isNewEmail) {

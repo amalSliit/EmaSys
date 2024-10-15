@@ -20,13 +20,13 @@ public class Attendance {
     private LocalDateTime checkOutTime;
 
     @Column(nullable = false)
-    private LocalDateTime date;
+    private LocalDateTime attendanceDate;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private Status status = Status.CHECK_IN;
 
-    private Integer total_hours;
+    private Float totalHours;
 
 
     public enum Status {
@@ -66,12 +66,12 @@ public class Attendance {
         this.checkOutTime = checkOutTime;
     }
 
-    public LocalDateTime getDate() {
-        return date;
+    public LocalDateTime getAttendanceDate() {
+        return attendanceDate;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.date = date;
+    public void setAttendanceDate(LocalDateTime date) {
+        this.attendanceDate = date;
     }
 
     public Status getStatus() {
@@ -82,11 +82,11 @@ public class Attendance {
         this.status = status;
     }
 
-    public Integer getTotal_hours() {
-        return total_hours;
+    public Float getTotalHours() {
+        return totalHours;
     }
 
-    public void setTotal_hours(Integer total_hours) {
-        this.total_hours = total_hours;
+    public void setTotalHours(Float total_hours) {
+        this.totalHours = total_hours;
     }
 }

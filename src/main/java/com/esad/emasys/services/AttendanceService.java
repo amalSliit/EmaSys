@@ -19,7 +19,7 @@ public class AttendanceService {
     @Autowired
     private EmployeeServiceImpl empService;
 
-    public Attendance checkIn(Integer empId) {
+    public LocalDateTime checkIn(Integer empId) {
         Employee emp = empService.getEmployee(empId);
 
         // Check if the user has already checked in and hasn't checked out yet
@@ -31,11 +31,12 @@ public class AttendanceService {
         attendance.setEmployee(emp);
         attendance.setCheckInTime(LocalDateTime.now());
         attendance.setAttendanceDate(LocalDateTime.now());
+        attendanceRepository.save(attendance);
 
-        return attendanceRepository.save(attendance);
+        return attendance.getCheckInTime();
     }
 
-    public Attendance checkOut(Integer empId) {
+    public LocalDateTime checkOut(Integer empId) {
         Employee emp = empService.getEmployee(empId);
 
         Attendance attendance = attendanceRepository.findByEmployeeAndCheckOutTimeIsNull(emp)
@@ -52,7 +53,8 @@ public class AttendanceService {
 
         // Set the total hours worked
         attendance.setTotalHours(totalHours);
+        attendanceRepository.save(attendance);
 
-        return attendanceRepository.save(attendance);
+        return attendance.getCheckOutTime();
     }
 }

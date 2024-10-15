@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
+
 @RestController
 @RequestMapping("/api/attendance")
 public class AttendanceController {
@@ -19,13 +21,13 @@ public class AttendanceController {
 
     @PostMapping("/checkin/{empId}")
     public ResponseEntity<AttendanceResponse> checkIn(@PathVariable Integer empId) {
-        Attendance attendance = attendanceService.checkIn(empId);
-        return ResponseEntity.ok(new AttendanceResponse("Checked in successfully", attendance));
+        LocalDateTime checkInTime = attendanceService.checkIn(empId);
+        return ResponseEntity.ok(new AttendanceResponse("Checked in successfully", checkInTime));
     }
 
     @PostMapping("/checkout/{empId}")
     public ResponseEntity<AttendanceResponse> checkOut(@PathVariable Integer empId) {
-        Attendance attendance = attendanceService.checkOut(empId);
-        return ResponseEntity.ok(new AttendanceResponse("Checked out successfully", attendance));
+        LocalDateTime checkOutTime = attendanceService.checkOut(empId);
+        return ResponseEntity.ok(new AttendanceResponse("Checked out successfully", checkOutTime));
     }
 }

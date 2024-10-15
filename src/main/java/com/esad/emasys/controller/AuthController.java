@@ -1,5 +1,6 @@
 package com.esad.emasys.controller;
 
+import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.LoginRequest;
 import com.esad.emasys.model.LoginResponse;
 import com.esad.emasys.model.User;
@@ -39,11 +40,11 @@ public class AuthController {
         boolean authenticated = authService.isLogin(logEmail);
 
         if (authenticated) {
-            User authUser = authService.getUser(logEmail);
-            String token = jwtUtil.generateToken(logEmail);
+            Employee authEmp = authService.getEmployee(logEmail);
+            String token = jwtUtil.generateToken(authEmp.getId());
 
             return ResponseEntity.status(HttpStatus.ACCEPTED)
-                    .body(new LoginResponse(authUser, "Login Successful", token));
+                    .body(new LoginResponse(authEmp, "Login Successful", token));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new LoginResponse(null, "Invalid credentials", null));

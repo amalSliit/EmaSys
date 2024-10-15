@@ -1,23 +1,23 @@
 package com.esad.emasys.model;
 
 public class LoginResponse {
-    private User user;
+    private Employee emp;
     private String message;
     private String authToken;
 
     // Getters and Setters
-    public LoginResponse(User user, String message, String authToken) {
-        this.user = user;
+    public LoginResponse(Employee employee, String message, String authToken) {
+        this.emp = employee;
         this.message = message;
         this.authToken = authToken;
     }
 
-    public User getUser() {
-        return user;
+    public Employee getEmployee() {
+        return emp;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setEmployee(Employee employee) {
+        this.emp = employee;
     }
 
     public String getMessage() {

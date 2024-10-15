@@ -1,5 +1,7 @@
 package com.esad.emasys.services;
 
+import com.esad.emasys.impl.EmployeeServiceImpl;
+import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.User;
 import com.esad.emasys.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,9 @@ public class AuthService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private EmployeeServiceImpl empService;
+
     public boolean isLogin(String email) {
         User user = userRepository.findByEmail(email);
         if (user != null) {
@@ -20,7 +25,8 @@ public class AuthService {
         }
     }
 
-    public User getUser(String email) {
-        return userRepository.findByEmail(email);
+    public Employee getEmployee(String email) {
+        User user = userRepository.findByEmail(email);
+        return empService.getEmployeeUserId(user.getId());
     }
 }

@@ -31,6 +31,12 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
+    public Employee getEmployeeUserId(Integer userId) {
+        Optional<Employee> emp = empRepo.findByUserId(userId);
+        return emp.orElse(null);
+    }
+
+    @Override
     public void deleteEmployee(Integer id) {
         empRepo.deleteById(id);
     }

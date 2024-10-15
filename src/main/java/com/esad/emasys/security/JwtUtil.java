@@ -1,5 +1,6 @@
 package com.esad.emasys.security;
 
+
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -10,12 +11,13 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    private final SecretKey secretKey;
-    private final String SHA_KEY = "ema_sys";
-    
+    private SecretKey secretKey;
+
     // Generate a secure key from a byte array
     public JwtUtil() {
-        this.secretKey = Keys.hmacShaKeyFor(SHA_KEY.getBytes(StandardCharsets.UTF_8));
+        //Keys.hmacShaKeyFor("ema_sys".getBytes(StandardCharsets.UTF_8));
+        String secKey = "a_secure_key_of_at_least_32_characters_long";
+        secretKey = Keys.hmacShaKeyFor(secKey.getBytes(StandardCharsets.UTF_8));
     }
 
     public String generateToken(String email) {

@@ -1,6 +1,7 @@
 package com.esad.emasys.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -21,8 +22,18 @@ public class Attendance {
     @Column(nullable = false)
     private LocalDateTime date;
 
-    // Getters and Setters
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Status status = Status.CHECK_IN;
 
+    private Integer total_hours;
+
+
+    public enum Status {
+        CHECK_IN, CHECK_OUT
+    }
+
+    // Getters and Setters
     public int getId() {
         return id;
     }
@@ -61,5 +72,21 @@ public class Attendance {
 
     public void setDate(LocalDateTime date) {
         this.date = date;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
+
+    public Integer getTotal_hours() {
+        return total_hours;
+    }
+
+    public void setTotal_hours(Integer total_hours) {
+        this.total_hours = total_hours;
     }
 }

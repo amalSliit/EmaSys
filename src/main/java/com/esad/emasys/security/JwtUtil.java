@@ -11,12 +11,11 @@ import java.util.Date;
 
 public class JwtUtil {
 
-    private SecretKey secretKey;
+    private final SecretKey secretKey;
 
     // Generate a secure key from a byte array
     public JwtUtil() {
-        //Keys.hmacShaKeyFor("ema_sys".getBytes(StandardCharsets.UTF_8));
-        String secKey = "a_secure_key_of_at_least_32_characters_long";
+        String secKey = "employee_attandanse_system_@_2024";
         secretKey = Keys.hmacShaKeyFor(secKey.getBytes(StandardCharsets.UTF_8));
     }
 

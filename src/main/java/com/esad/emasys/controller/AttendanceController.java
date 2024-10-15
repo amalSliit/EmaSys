@@ -47,8 +47,6 @@ public class AttendanceController {
 
             //save checkIn
             LocalDateTime checkInTime = attendanceService.checkIn(empId);
-            /*return ResponseEntity.status(HttpStatus.OK)
-                    .body(new AttendanceResponse("Checked in successfully", checkInTime));*/
             return ResponseEntity.ok(new AttendanceResponse("Checked in successfully", checkInTime));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)

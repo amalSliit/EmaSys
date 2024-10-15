@@ -3,6 +3,7 @@ package com.esad.emasys.controller;
 import com.esad.emasys.model.LoginRequest;
 import com.esad.emasys.model.LoginResponse;
 import com.esad.emasys.model.User;
+import com.esad.emasys.security.JwtUtil;
 import com.esad.emasys.services.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,21 +20,33 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
+    private final JwtUtil jwtUtil;
+
+    public AuthController(AuthService authService) {
+        this.authService = authService;
+        this.jwtUtil = new JwtUtil();
+    }
+
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest loginRequest) {
-        if (loginRequest.getEmail() == null || loginRequest.getEmail().isEmpty()) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new LoginResponse(null, "Email is required"));
+        String logEmail = loginRequest.getEmail();
+
+        if (logEmail == null || logEmail.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new LoginResponse(null, "Email is required", null));
         }
 
-        boolean authenticated = authService.isLogin(loginRequest.getEmail());
+        boolean authenticated = authService.isLogin(logEmail);
 
         if (authenticated) {
-            User authUser = authService.getUser(loginRequest.getEmail());
+            User authUser = authService.getUser(logEmail);
+            String token = jwtUtil.generateToken(logEmail);
+
             return ResponseEntity.status(HttpStatus.ACCEPTED)
-                    .body(new LoginResponse(authUser, "Login Successful"));
+                    .body(new LoginResponse(authUser, "Login Successful", token));
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new LoginResponse(null, "Invalid credentials"));
+                    .body(new LoginResponse(null, "Invalid credentials", null));
         }
     }
 

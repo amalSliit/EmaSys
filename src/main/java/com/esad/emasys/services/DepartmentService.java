@@ -1,7 +1,7 @@
-package com.esad.emasys.services.impl;
+package com.esad.emasys.services;
 
 import com.esad.emasys.model.Department;
-import com.esad.emasys.services.repository.DepartmentRepository;
+import com.esad.emasys.repository.DepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

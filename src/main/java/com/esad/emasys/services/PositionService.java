@@ -1,7 +1,7 @@
-package com.esad.emasys.services.impl;
+package com.esad.emasys.services;
 
 import com.esad.emasys.model.Position;
-import com.esad.emasys.services.repository.PositionRepository;
+import com.esad.emasys.repository.PositionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

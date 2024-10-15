@@ -1,7 +1,7 @@
-package com.esad.emasys.services.impl;
+package com.esad.emasys.services;
 
 import com.esad.emasys.model.User;
-import com.esad.emasys.services.repository.UserRepository;
+import com.esad.emasys.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

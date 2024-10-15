@@ -1,4 +1,4 @@
-package com.esad.emasys.services.repository;
+package com.esad.emasys.repository;
 
 import com.esad.emasys.model.Employee;
 import org.springframework.data.repository.CrudRepository;

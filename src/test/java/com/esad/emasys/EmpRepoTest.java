@@ -1,7 +1,7 @@
 package com.esad.emasys;
 
 import com.esad.emasys.model.Employee;
-import com.esad.emasys.services.repository.EmployeeRepository;
+import com.esad.emasys.repository.EmployeeRepository;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

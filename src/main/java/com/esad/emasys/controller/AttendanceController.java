@@ -33,7 +33,7 @@ public class AttendanceController {
         return ResponseEntity.ok(new AttendanceResponse("Checked out successfully", checkOutTime));
     }
 
-    @GetMapping("/status")
+    @PostMapping("/status")
     public ResponseEntity<AttendanceStatusResponse> getAttendanceStatus(@RequestBody AttendanceRequest attendanceRequest) {
         AttendanceStatusResponse attendanceStatusDto = attendanceService.getStatus(attendanceRequest.getEmpId());
         return ResponseEntity.ok(attendanceStatusDto);

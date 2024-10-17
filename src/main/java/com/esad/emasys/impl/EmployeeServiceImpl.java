@@ -32,7 +32,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployee(String email) {
-        Optional<Employee> emp = empRepo.findById(1);
+        Optional<Employee> emp = empRepo.findByEmail(email);
         return emp.orElse(null);
     }
 

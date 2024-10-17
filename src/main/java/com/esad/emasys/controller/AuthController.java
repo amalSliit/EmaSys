@@ -42,11 +42,11 @@ public class AuthController {
             Employee authEmp = authService.getEmployee(logEmail);
             String token = "40";
 
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body(new LoginResponse(authEmp, "Login Successful", token));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new LoginResponse(null, "Invalid credentials", null));
+            return ResponseEntity.status(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
+                    .body(new LoginResponse(null, "An unregistered Email. Use office gmail account for Contact HR.", null));
         }
     }
 

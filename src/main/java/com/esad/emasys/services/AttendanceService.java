@@ -2,6 +2,7 @@ package com.esad.emasys.services;
 
 import com.esad.emasys.impl.EmployeeServiceImpl;
 import com.esad.emasys.model.Attendance;
+import com.esad.emasys.model.AttendanceStatusResponse;
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.repository.AttendanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class AttendanceService {
@@ -56,5 +58,26 @@ public class AttendanceService {
         attendanceRepository.save(attendance);
 
         return attendance.getCheckOutTime();
+    }
+
+    public AttendanceStatusResponse getStatus(int employeeId) {
+        // Step 1: Find the latest CHECK_IN with totalHours = 0
+        Optional<Attendance> checkInOpt = attendanceRepository
+                .findFirstByEmployeeIdAndStatusOrderByCheckInTimeDesc(employeeId, Attendance.Status.CHECK_IN);
+
+        Optional<Attendance> checkOutOpt = attendanceRepository
+                .findFirstByEmployeeIdAndStatusOrderByCheckOutTimeDesc(employeeId, Attendance.Status.CHECK_OUT);
+
+        if (checkInOpt.isPresent()) {
+            // Step 2: If CHECK_IN found with totalHours = 0, return it
+            Attendance attendance = checkInOpt.get();
+            return new AttendanceStatusResponse(attendance.getStatus(), attendance.getCheckInTime(), null, attendance.getAttendanceDate(), attendance.getTotalHours());
+        } else if (checkOutOpt.isPresent()) {
+            // Step 3: If no CHECK_IN found, find the latest CHECK_OUT
+            Attendance attendance = checkOutOpt.get();
+            return new AttendanceStatusResponse(attendance.getStatus(), null, attendance.getCheckOutTime(), attendance.getAttendanceDate(), attendance.getTotalHours());
+        } else {
+            throw null;
+        }
     }
 }

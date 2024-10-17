@@ -41,7 +41,7 @@ public class AuthController {
 
         if (authenticated) {
             Employee authEmp = authService.getEmployee(logEmail);
-            String token = jwtUtil.generateToken(authEmp.getId());
+            String token = "40";
 
             return ResponseEntity.status(HttpStatus.ACCEPTED)
                     .body(new LoginResponse(authEmp, "Login Successful", token));

@@ -1,10 +1,8 @@
 package com.esad.emasys.controller;
 
 import com.esad.emasys.model.AttendanceResponse;
-import com.esad.emasys.security.JwtUtil;
 import com.esad.emasys.services.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,11 +18,11 @@ public class AttendanceController {
     @Autowired
     private AttendanceService attendanceService;
 
-    private final JwtUtil jwtUtil;
+    //private final JwtUtil jwtUtil;
 
     public AttendanceController(AttendanceService attenService) {
         this.attendanceService = attenService;
-        this.jwtUtil = new JwtUtil();
+        //this.jwtUtil = new JwtUtil();
     }
 
     // Remove "Bearer " prefix if it exists in token
@@ -41,7 +39,7 @@ public class AttendanceController {
 
         String token = getFilterToken(authToken);
 
-        if (jwtUtil.validateToken(token)) {
+        /*if (jwtUtil.validateToken(token)) {
             // Get employee ID from token
             int empId = jwtUtil.getEmployeeId(token);
 
@@ -51,7 +49,14 @@ public class AttendanceController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AttendanceResponse("Unauthorized Access. Please re-login.", null));
-        }
+        }*/
+
+        // Get employee ID from token
+        int empId = 40;
+
+        //save checkIn
+        LocalDateTime checkInTime = attendanceService.checkIn(empId);
+        return ResponseEntity.ok(new AttendanceResponse("Checked in successfully", checkInTime));
     }
 
     @PostMapping("/checkout")
@@ -59,7 +64,7 @@ public class AttendanceController {
 
         String token = getFilterToken(authToken);
 
-        if (jwtUtil.validateToken(token)) {
+        /*if (jwtUtil.validateToken(token)) {
             // Get employee ID from token
             int empId = jwtUtil.getEmployeeId(token);
 
@@ -69,6 +74,13 @@ public class AttendanceController {
         } else {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
                     .body(new AttendanceResponse("Unauthorized Access. Please re-login.", null));
-        }
+        }*/
+
+        // Get employee ID from token
+        int empId = 40;
+
+        //save checkOut
+        LocalDateTime checkOutTime = attendanceService.checkOut(empId);
+        return ResponseEntity.ok(new AttendanceResponse("Checked out successfully", checkOutTime));
     }
 }

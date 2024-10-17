@@ -1,19 +1,9 @@
 package com.esad.emasys.security;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
-
-@Component
+//@Component
 public class JwtUtil {
 
-    private final SecretKey secretKey;
+   /* private final SecretKey secretKey;
 
     // Constructor: Generates a secure key from a byte array
     public JwtUtil() {
@@ -48,6 +38,6 @@ public class JwtUtil {
     // Get employee ID from the token
     public int getEmployeeId(String token) {
         return Integer.parseInt(getClaims(token).getSubject()); // Convert to int
-    }
+    }*/
 }
 

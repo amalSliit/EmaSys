@@ -31,8 +31,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeUserId(Integer userId) {
-        Optional<Employee> emp = empRepo.findByUserId(userId);
+    public Employee getEmployee(String email) {
+        Optional<Employee> emp = empRepo.findById(1);
         return emp.orElse(null);
     }
 

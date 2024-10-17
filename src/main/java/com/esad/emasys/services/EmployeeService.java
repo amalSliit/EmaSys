@@ -11,7 +11,7 @@ public interface EmployeeService {
 
     Employee getEmployee(Integer id);
 
-    Employee getEmployeeUserId(Integer user_id);
+    Employee getEmployee(String email);
 
     void deleteEmployee(Integer id);
 

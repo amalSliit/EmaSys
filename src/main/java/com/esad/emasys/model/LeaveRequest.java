@@ -1,6 +1,7 @@
 package com.esad.emasys.model;
 
 import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 
 @Entity
@@ -14,10 +15,6 @@ public class LeaveRequest {
     @ManyToOne
     @JoinColumn(name = "employee_id", nullable = false)
     private Employee employee;
-
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -49,14 +46,6 @@ public class LeaveRequest {
 
     public void setEmployee(Employee employee) {
         this.employee = employee;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
     }
 
     public LeaveType getLeaveType() {

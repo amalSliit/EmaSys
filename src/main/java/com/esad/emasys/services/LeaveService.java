@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class LeaveService {
@@ -24,7 +25,7 @@ public class LeaveService {
             return HttpStatus.FOUND.value();
         } else {
             // Create a new leave request if there are no existing pending requests
-            Leave leave = new Leave(employee, startDate, endDate, LocalDate.now(), reason, type);
+            Leave leave = new Leave(employee, startDate, endDate, LocalDateTime.now(), reason, type);
             leaveRepository.save(leave);
             return HttpStatus.OK.value();
         }
@@ -32,5 +33,9 @@ public class LeaveService {
 
     public Leave getPendingLeave(int employeeId) {
         return leaveRepository.getPendingLeave(employeeId, Leave.LeaveStatus.PENDING);
+    }
+
+    public Leave getStatus(int employeeId) {
+        return leaveRepository.getLastRequestStatus(employeeId);
     }
 }

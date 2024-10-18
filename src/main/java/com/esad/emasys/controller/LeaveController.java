@@ -58,4 +58,10 @@ public class LeaveController {
         return ResponseEntity.ok(pendingLeave);
     }
 
+    @GetMapping("/status/{employeeId}")
+    public ResponseEntity<Leave> getRequestStatus(@PathVariable int employeeId) {
+        Leave pendingLeave = leaveService.getStatus(employeeId);
+        return ResponseEntity.ok(pendingLeave);
+    }
+
 }

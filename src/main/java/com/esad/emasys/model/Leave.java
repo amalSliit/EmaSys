@@ -3,6 +3,7 @@ package com.esad.emasys.model;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "employee_leave") // Renamed table to "leave"
@@ -23,7 +24,7 @@ public class Leave {
     private LocalDate endDate;
 
     @Column(nullable = false, name = "requested_date")
-    private LocalDate requestedDate;
+    private LocalDateTime requestedDate;
 
     @Column(nullable = false)
     private String reason;
@@ -45,7 +46,7 @@ public class Leave {
     }
 
     // Parameterized constructor
-    public Leave(Employee employee, LocalDate startDate, LocalDate endDate, LocalDate requestedDate,
+    public Leave(Employee employee, LocalDate startDate, LocalDate endDate, LocalDateTime requestedDate,
                  String reason, LeaveType type) {
         this.employee = employee;
         this.startDate = startDate;
@@ -88,11 +89,11 @@ public class Leave {
         this.endDate = endDate;
     }
 
-    public LocalDate getRequestedDate() {
+    public LocalDateTime getRequestedDate() {
         return requestedDate;
     }
 
-    public void setRequestedDate(LocalDate requestedDate) {
+    public void setRequestedDate(LocalDateTime requestedDate) {
         this.requestedDate = requestedDate;
     }
 

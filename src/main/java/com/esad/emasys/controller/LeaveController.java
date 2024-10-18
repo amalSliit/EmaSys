@@ -9,17 +9,13 @@ import com.esad.emasys.services.LeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 @RestController
-@RequestMapping("/api/leave")
+@RequestMapping("/api/leaves")
 public class LeaveController {
 
     @Autowired
@@ -39,10 +35,14 @@ public class LeaveController {
             LocalDate endDate = LocalDate.parse(request.getEndDate());
 
             // Call the service to process the leave request
-            leaveService.requestingLeave(employee, startDate, endDate, request.getReason(), request.getType());
+            Integer status = leaveService.requestingLeave(employee, startDate, endDate, request.getReason(), request.getType());
 
-            // Return success message in JSON format
-            LeaveResponse response = new LeaveResponse("Success", null);
+            LeaveResponse response;
+            if (status == HttpStatus.FOUND.value()) {
+                response = new LeaveResponse("Failed", "An employee can only have one pending leave request at a time.");
+            } else {
+                response = new LeaveResponse("Success", null);
+            }
             return ResponseEntity.ok(response);
 
         } catch (Exception e) {
@@ -50,6 +50,12 @@ public class LeaveController {
             LeaveResponse response = new LeaveResponse("Failed", e.getMessage());
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
+    }
+
+    @GetMapping("/pending/{employeeId}")
+    public ResponseEntity<Leave> getPendingLeaveRequests(@PathVariable int employeeId) {
+        Leave pendingLeaves = leaveService.getPendingLeave(employeeId);
+        return ResponseEntity.ok(pendingLeaves);
     }
 
 }

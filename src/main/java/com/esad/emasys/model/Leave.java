@@ -2,13 +2,10 @@ package com.esad.emasys.model;
 
 import jakarta.persistence.*;
 
-import java.time.LocalDateTime;
-
-import jakarta.persistence.*;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "leave") // Renamed table to "leave"
+@Table(name = "employee_leave") // Renamed table to "leave"
 public class Leave {
 
     @Id
@@ -40,7 +37,7 @@ public class Leave {
     private LeaveStatus status = LeaveStatus.PENDING; // Default to PENDING
 
     @ManyToOne
-    @JoinColumn(name = "manage_by", nullable = false)
+    @JoinColumn(name = "manage_by")
     private Employee manageBy; // Admin or Manager employee
 
     // Default constructor
@@ -49,15 +46,13 @@ public class Leave {
 
     // Parameterized constructor
     public Leave(Employee employee, LocalDate startDate, LocalDate endDate, LocalDate requestedDate,
-                 String reason, LeaveType type, Employee manageBy) {
+                 String reason, LeaveType type) {
         this.employee = employee;
         this.startDate = startDate;
         this.endDate = endDate;
         this.requestedDate = requestedDate;
         this.reason = reason;
         this.type = type;
-        this.status = LeaveStatus.PENDING; // Default status is PENDING
-        this.manageBy = manageBy;
     }
 
     // Getters and Setters

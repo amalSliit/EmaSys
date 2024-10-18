@@ -18,7 +18,7 @@ public class LeaveService {
     public Integer requestingLeave(Employee employee, LocalDate startDate, LocalDate endDate, String reason, Leave.LeaveType type) {
 
         // Check for existing pending leave requests for the employee
-        Leave existingLeave = leaveRepository.findPendingLeaveByEmployeeId(employee.getId());
+        Leave existingLeave = leaveRepository.getPendingLeave(employee.getId(), Leave.LeaveStatus.PENDING);
 
         if (existingLeave != null) {
             return HttpStatus.FOUND.value();
@@ -31,6 +31,6 @@ public class LeaveService {
     }
 
     public Leave getPendingLeave(int employeeId) {
-        return leaveRepository.findPendingLeaveByEmployeeId(employeeId);
+        return leaveRepository.getPendingLeave(employeeId, Leave.LeaveStatus.PENDING);
     }
 }

@@ -14,7 +14,7 @@ public class LeaveService {
     @Autowired
     private LeaveRepository leaveRepository; // Assuming you've created a LeaveRepository interface
 
-    public Leave requestLeave(Employee employee, LocalDate startDate, LocalDate endDate, String reason, Leave.LeaveType type) {
+    public Leave requestingLeave(Employee employee, LocalDate startDate, LocalDate endDate, String reason, Leave.LeaveType type) {
         Leave leave = new Leave(employee, startDate, endDate, LocalDate.now(), reason, type);
         return leaveRepository.save(leave); // Save the leave request to the database
     }

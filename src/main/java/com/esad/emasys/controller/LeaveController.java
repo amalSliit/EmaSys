@@ -2,6 +2,7 @@ package com.esad.emasys.controller;
 
 import com.esad.emasys.impl.EmployeeServiceImpl;
 import com.esad.emasys.model.Employee;
+import com.esad.emasys.model.Leave;
 import com.esad.emasys.model.LeaveRequest;
 import com.esad.emasys.model.LeaveResponse;
 import com.esad.emasys.services.LeaveService;
@@ -38,7 +39,7 @@ public class LeaveController {
             LocalDate endDate = LocalDate.parse(request.getEndDate());
 
             // Call the service to process the leave request
-            leaveService.requestLeave(employee, startDate, endDate, request.getReason(), request.getType());
+            leaveService.requestingLeave(employee, startDate, endDate, request.getReason(), request.getType());
 
             // Return success message in JSON format
             LeaveResponse response = new LeaveResponse("Success", null);

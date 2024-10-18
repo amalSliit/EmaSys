@@ -12,6 +12,6 @@ public interface LeaveRepository extends JpaRepository<Leave, Integer> {
             @Param("leaveStatus") Leave.LeaveStatus leaveStatus);
 
 
-    @Query("SELECT l FROM Leave l WHERE l.employee.id = :employeeId ORDER BY l.requestedDate DESC LIMIT 1")
+    @Query("SELECT leave FROM Leave leave WHERE leave.employee.id = :employeeId ORDER BY leave.requestedDate DESC LIMIT 1")
     Leave getLastRequestStatus(@Param("employeeId") Integer employeeId);
 }

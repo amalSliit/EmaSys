@@ -1,9 +1,9 @@
-package com.esad.emasys.impl;
+package com.esad.emasys.services.impl;
 
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.Leave;
 import com.esad.emasys.repository.LeaveRepository;
-import com.esad.emasys.services.LeaveService;
+import com.esad.emasys.services.interfaces.LeaveService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

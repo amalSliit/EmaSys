@@ -4,7 +4,7 @@ import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.LoginRequest;
 import com.esad.emasys.model.LoginResponse;
 import com.esad.emasys.security.JwtUtil;
-import com.esad.emasys.services.AuthService;
+import com.esad.emasys.services.interfaces.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

@@ -1,5 +1,6 @@
 package com.esad.emasys.controller;
 
+import com.esad.emasys.dto.LeaveDTO;
 import com.esad.emasys.facade.EmployeeFacade;
 import com.esad.emasys.model.Leave;
 import com.esad.emasys.model.LeaveRequest;
@@ -31,15 +32,30 @@ public class LeaveController {
     }
 
     @GetMapping("/pending/{employeeId}")
-    public ResponseEntity<Leave> getPendingLeaveRequests(@PathVariable int employeeId) {
+    public ResponseEntity<LeaveDTO> getPendingLeaveRequests(@PathVariable int employeeId) {
         Leave pendingLeave = empFacade.getPendingLeave(employeeId);
-        return ResponseEntity.ok(pendingLeave);
+        LeaveDTO leaveDto = toLeaveDTO(pendingLeave);
+        return ResponseEntity.ok(leaveDto);
     }
 
     @GetMapping("/status/{employeeId}")
-    public ResponseEntity<Leave> getRequestStatus(@PathVariable int employeeId) {
-        Leave pendingLeave = empFacade.getLeaveStatus(employeeId);
-        return ResponseEntity.ok(pendingLeave);
+    public ResponseEntity<LeaveDTO> getRequestStatus(@PathVariable int employeeId) {
+        Leave statusLeave = empFacade.getLeaveStatus(employeeId);
+        LeaveDTO leaveDto = toLeaveDTO(statusLeave);
+        return ResponseEntity.ok(leaveDto);
     }
+
+    public LeaveDTO toLeaveDTO(Leave leave) {
+        return new LeaveDTO(
+                leave.getId(),
+                leave.getStartDate(),
+                leave.getEndDate(),
+                leave.getRequestedDate(),
+                leave.getReason(),
+                leave.getType().name(),
+                leave.getStatus().name()
+        );
+    }
+
 
 }

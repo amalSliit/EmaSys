@@ -133,7 +133,10 @@ public class Leave {
     public enum LeaveType {
         SICK,
         ANNUAL,
-        OTHER
+        CASUAL,
+        PATERNITY,
+        MATERNITY,
+        COMPENSATORY
     }
 
     // Enum for Leave Status

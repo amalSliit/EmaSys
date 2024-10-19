@@ -3,7 +3,6 @@ package com.esad.emasys.controller;
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.LoginRequest;
 import com.esad.emasys.model.LoginResponse;
-import com.esad.emasys.security.JwtUtil;
 import com.esad.emasys.services.interfaces.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,11 +19,8 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    private final JwtUtil jwtUtil;
-
     public AuthController(AuthService authService) {
         this.authService = authService;
-        this.jwtUtil = new JwtUtil();
     }
 
     @PostMapping("/login")

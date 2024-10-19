@@ -23,7 +23,7 @@ public abstract class LeaveRequestTemplate {
         }
 
         // Check leave balance availability
-        if (!checkLeaveBalance(employee, type)) {
+        if (!checkLeaveBalance(employee, type, startDate, endDate)) {
             return HttpStatus.PRECONDITION_FAILED.value(); // 412 Precondition Failed if balance is insufficient
         }
 
@@ -41,7 +41,7 @@ public abstract class LeaveRequestTemplate {
 
     protected abstract Leave checkExistingPendingLeave(Employee employee);
 
-    protected abstract boolean checkLeaveBalance(Employee employee, Leave.LeaveType type);
+    protected abstract boolean checkLeaveBalance(Employee employee, Leave.LeaveType type, LocalDate startDate, LocalDate endDate);
 
     protected abstract void saveLeaveRequest(Employee employee, LocalDate startDate, LocalDate endDate, String reason, Leave.LeaveType type);
 

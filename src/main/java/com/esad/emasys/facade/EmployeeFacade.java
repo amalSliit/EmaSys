@@ -1,5 +1,6 @@
 package com.esad.emasys.facade;
 
+import com.esad.emasys.impl.AttendanceServiceImpl;
 import com.esad.emasys.impl.EmployeeServiceImpl;
 import com.esad.emasys.model.*;
 import com.esad.emasys.services.AttendanceService;
@@ -12,11 +13,11 @@ import java.time.LocalDateTime;
 @Component
 public class EmployeeFacade {
 
-    private final AttendanceService attendanceService;
+    private final AttendanceServiceImpl attendanceService;
     private final LeaveService leaveService;
     private final EmployeeServiceImpl employeeService;
 
-    public EmployeeFacade(AttendanceService attendanceService, LeaveService leaveService, EmployeeServiceImpl employeeService) {
+    public EmployeeFacade(AttendanceServiceImpl attendanceService, LeaveService leaveService, EmployeeServiceImpl employeeService) {
         this.attendanceService = attendanceService;
         this.leaveService = leaveService;
         this.employeeService = employeeService;

@@ -23,22 +23,8 @@ public class LeaveServiceImpl implements LeaveService {
 
     @Override
     public Integer requestingLeave(Employee employee, LocalDate startDate, LocalDate endDate, String reason, Leave.LeaveType type) {
-
         LeaveRequestTemplate leaveReqPros = new RegularLeaveRequest(leaveRepository, lbRepo);
         return leaveReqPros.requestingLeave(employee, startDate, endDate, reason, type);
-
-
-        // Check for existing pending leave requests for the employee
-        /*Leave existingLeave = leaveRepository.getPendingLeave(employee.getId(), Leave.LeaveStatus.PENDING);
-
-        if (existingLeave != null) {
-            return HttpStatus.FOUND.value();
-        } else {
-            // Create a new leave request if there are no existing pending requests
-            Leave leave = new Leave(employee, startDate, endDate, LocalDateTime.now(), reason, type);
-            leaveRepository.save(leave);
-            return HttpStatus.OK.value();
-        }*/
     }
 
     @Override

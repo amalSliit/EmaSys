@@ -1,7 +1,7 @@
-package com.esad.emasys.services.impl;
+package com.esad.emasys.service.impl;
 
 import com.esad.emasys.model.Employee;
-import com.esad.emasys.services.interfaces.EmployeeService;
+import com.esad.emasys.service.interfaces.EmployeeService;
 import com.esad.emasys.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

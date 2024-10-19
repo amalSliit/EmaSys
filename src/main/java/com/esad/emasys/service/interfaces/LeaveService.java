@@ -1,4 +1,4 @@
-package com.esad.emasys.services.interfaces;
+package com.esad.emasys.service.interfaces;
 
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.Leave;

@@ -1,10 +1,10 @@
-package com.esad.emasys.services.impl;
+package com.esad.emasys.service.impl;
 
 import com.esad.emasys.model.Attendance;
 import com.esad.emasys.model.AttendanceStatusResponse;
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.repository.AttendanceRepository;
-import com.esad.emasys.services.interfaces.AttendanceService;
+import com.esad.emasys.service.interfaces.AttendanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

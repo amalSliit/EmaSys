@@ -1,8 +1,8 @@
 package com.esad.emasys.facade;
 
-import com.esad.emasys.services.impl.AttendanceServiceImpl;
-import com.esad.emasys.services.impl.EmployeeServiceImpl;
-import com.esad.emasys.services.impl.LeaveServiceImpl;
+import com.esad.emasys.service.impl.AttendanceServiceImpl;
+import com.esad.emasys.service.impl.EmployeeServiceImpl;
+import com.esad.emasys.service.impl.LeaveServiceImpl;
 import com.esad.emasys.model.*;
 import org.springframework.stereotype.Component;
 

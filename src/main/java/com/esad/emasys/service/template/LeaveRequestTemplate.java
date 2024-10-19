@@ -24,7 +24,7 @@ public abstract class LeaveRequestTemplate {
 
         // Check leave balance availability
         if (!checkLeaveBalance(employee, type, startDate, endDate)) {
-            return HttpStatus.PRECONDITION_FAILED.value(); // 412 Precondition Failed if balance is insufficient
+            return HttpStatus.PRECONDITION_FAILED.value();
         }
 
         // Save the leave request

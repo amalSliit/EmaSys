@@ -2,9 +2,8 @@ package com.esad.emasys.facade;
 
 import com.esad.emasys.impl.AttendanceServiceImpl;
 import com.esad.emasys.impl.EmployeeServiceImpl;
+import com.esad.emasys.impl.LeaveServiceImpl;
 import com.esad.emasys.model.*;
-import com.esad.emasys.services.AttendanceService;
-import com.esad.emasys.services.LeaveService;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -14,10 +13,10 @@ import java.time.LocalDateTime;
 public class EmployeeFacade {
 
     private final AttendanceServiceImpl attendanceService;
-    private final LeaveService leaveService;
+    private final LeaveServiceImpl leaveService;
     private final EmployeeServiceImpl employeeService;
 
-    public EmployeeFacade(AttendanceServiceImpl attendanceService, LeaveService leaveService, EmployeeServiceImpl employeeService) {
+    public EmployeeFacade(AttendanceServiceImpl attendanceService, LeaveServiceImpl leaveService, EmployeeServiceImpl employeeService) {
         this.attendanceService = attendanceService;
         this.leaveService = leaveService;
         this.employeeService = employeeService;

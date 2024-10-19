@@ -18,4 +18,8 @@ public class LeaveBalanceService {
     public LeaveBalance getLeaveBalance(Integer employeeId) {
         return leaveBalanceRepository.findByEmployeeId(employeeId);
     }
+
+    public LeaveBalance saveLeaveBalance(LeaveBalance leaveBalance) {
+        return leaveBalanceRepository.save(leaveBalance);
+    }
 }

@@ -2,9 +2,12 @@ package com.esad.emasys.controller;
 
 import com.esad.emasys.model.Department;
 import com.esad.emasys.model.Employee;
+import com.esad.emasys.model.LeaveBalance;
 import com.esad.emasys.model.Position;
+import com.esad.emasys.repository.LeaveBalanceRepository;
 import com.esad.emasys.service.interfaces.DepartmentService;
 import com.esad.emasys.service.impl.EmployeeServiceImpl;
+import com.esad.emasys.service.interfaces.LeaveBalanceService;
 import com.esad.emasys.service.interfaces.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,6 +22,7 @@ import java.util.List;
 
 @Controller
 public class EmployeeController {
+
     @Autowired
     private EmployeeServiceImpl empServies;
 
@@ -27,6 +31,10 @@ public class EmployeeController {
 
     @Autowired
     private PositionService positionService;
+
+    @Autowired
+    private LeaveBalanceService lbService;
+
 
     /*
      * Display all employee with information
@@ -110,6 +118,14 @@ public class EmployeeController {
                     model.addAttribute("flashType", "error");
                     return "new_employee";
                 }
+            }
+
+
+            // Create and save LeaveBalance for new employee
+            if (emp.getId() != null && isNewEmail) { // Only for new employees
+                LeaveBalance leaveBalance = new LeaveBalance();
+                leaveBalance.setEmployee(emp);
+                lbService.saveLeaveBalance(leaveBalance);
             }
 
 

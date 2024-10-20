@@ -36,7 +36,7 @@
         <td th:text="${emp.id}"></td>
         <td th:text="${emp.firstName}"></td>
         <td th:text="${emp.lastName}"></td>
-        <td th:text="${emp.user.email}"></td>
+        <td th:text="${emp.email}"></td>
         <td>
             <img th:src="@{${emp.photoUrl}}" alt="Profile" class="profile-img"/>
         </td>
@@ -55,7 +55,7 @@
         if (flashMessage) {
             flashMessage.style.display = 'none';
         }
-    }, 15000); // 5000ms = 5 seconds
+    }, 115000); // 5000ms = 5 seconds
 </script>
 
 </body>

@@ -16,12 +16,17 @@ public class Employee {
     @Column(nullable = false, name = "last_name")
     private String lastName;
 
-    @Column(nullable = false, name = "photo_url", length = 512) // Set length to 512 or more
+    @Column(nullable = false, name = "photo_url", length = 500)
     private String photoUrl;
 
-    @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(nullable = false, unique = true) // Ensure the email is unique
+    private String email;
+
+    private String password; // Nullable for Google login users
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role = Role.EMPLOYEE;
 
     @ManyToOne
     @JoinColumn(name = "department_id")
@@ -30,6 +35,13 @@ public class Employee {
     @ManyToOne
     @JoinColumn(name = "position_id")
     private Position position;
+
+    // Getters and Setters
+    public enum Role {
+        ADMIN,
+        EMPLOYEE,
+        MANAGER
+    }
 
     // Getter and Setter for ID
     public Integer getId() {
@@ -65,15 +77,6 @@ public class Employee {
 
     public void setPhotoUrl(String photoUrl) {
         this.photoUrl = photoUrl;
-    }
-
-    // Getter and Setter for User
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
     }
 
     // Getter for Department
@@ -118,6 +121,30 @@ public class Employee {
             this.position = new Position(); // Initialize position object
         }
         this.position.setId(positionId);
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
 

@@ -1,7 +1,7 @@
-package com.esad.emasys.impl;
+package com.esad.emasys.service.impl;
 
 import com.esad.emasys.model.Employee;
-import com.esad.emasys.services.EmployeeService;
+import com.esad.emasys.service.interfaces.EmployeeService;
 import com.esad.emasys.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +11,7 @@ import java.util.Optional;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
+
     @Autowired
     private EmployeeRepository empRepo;
 
@@ -31,8 +32,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public Employee getEmployeeUserId(Integer userId) {
-        Optional<Employee> emp = empRepo.findByUserId(userId);
+    public Employee getEmployee(String email) {
+        Optional<Employee> emp = empRepo.findByEmail(email);
         return emp.orElse(null);
     }
 

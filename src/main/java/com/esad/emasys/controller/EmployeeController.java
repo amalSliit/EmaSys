@@ -2,12 +2,13 @@ package com.esad.emasys.controller;
 
 import com.esad.emasys.model.Department;
 import com.esad.emasys.model.Employee;
+import com.esad.emasys.model.LeaveBalance;
 import com.esad.emasys.model.Position;
-import com.esad.emasys.model.User;
-import com.esad.emasys.services.DepartmentService;
-import com.esad.emasys.impl.EmployeeServiceImpl;
-import com.esad.emasys.services.PositionService;
-import com.esad.emasys.services.UserService;
+import com.esad.emasys.repository.LeaveBalanceRepository;
+import com.esad.emasys.service.interfaces.DepartmentService;
+import com.esad.emasys.service.impl.EmployeeServiceImpl;
+import com.esad.emasys.service.interfaces.LeaveBalanceService;
+import com.esad.emasys.service.interfaces.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import java.util.List;
 
 @Controller
 public class EmployeeController {
+
     @Autowired
     private EmployeeServiceImpl empServies;
 
@@ -31,7 +33,8 @@ public class EmployeeController {
     private PositionService positionService;
 
     @Autowired
-    private UserService userService;
+    private LeaveBalanceService lbService;
+
 
     /*
      * Display all employee with information
@@ -67,7 +70,7 @@ public class EmployeeController {
             boolean isNewEmail = false;
             boolean isUpdate = false;
 
-            User existUser = userService.findByEmail(emp.getUser().getEmail());
+            Employee existUser = empServies.getEmployee(emp.getEmail());
 
 
             if (emp.getId() != null) {
@@ -77,14 +80,14 @@ public class EmployeeController {
                 //Check emp email exist or not
                 if (existUser != null) {
                     //having an email, so check it's beloing with tis user
-                    if (existUser.getId() == existEmp.getUser().getId()) {
+                    if (existUser.getId() == existEmp.getId()) {
                         // yes email is belongs to update user
                         isUpdate = true;
                     } else {
                         //email already exist
                         // Prevent saving new employee if email is already associated with another user
                         model.addAttribute("pageTitle", "Edit Employee");
-                        model.addAttribute("message", "Email " + emp.getUser().getEmail() + " already exists");
+                        model.addAttribute("message", "Email " + emp.getEmail() + " already exists");
                         model.addAttribute("departments", departmentService.getAllDepartments());
                         model.addAttribute("positions", positionService.getAllPositions());
                         model.addAttribute("flashType", "error");
@@ -101,46 +104,28 @@ public class EmployeeController {
 
             if (isUpdate) {
                 // Update the existing user's information if needed
-
-                if(existUser != null) {
-                    userService.save(existUser);
-                    emp.setUser(existUser);
-                    empServies.saveEmployee(emp);
-                }else{
-                    //new email
-                    User updateUser = new User();
-                    updateUser.setEmail(emp.getUser().getEmail());
-                    updateUser.setPassword("Google");
-                    updateUser.setRole(User.Role.EMPLOYEE);
-
-                    userService.save(updateUser);
-                    emp.setUser(updateUser);
-                    empServies.saveEmployee(emp);
-                }
-
+                empServies.saveEmployee(emp);
             } else {
                 if (isNewEmail) {
                     // Create new user
-                    User userNew = new User();
-                    userNew.setEmail(emp.getUser().getEmail());
-                    userNew.setPassword("Google");
-                    userNew.setRole(User.Role.EMPLOYEE);
-
-                    //save user info
-                    userService.save(userNew);
-
-                    //save employee info
-                    emp.setUser(userNew);
                     empServies.saveEmployee(emp);
                 } else {
                     model.addAttribute("empNew", emp);
                     model.addAttribute("departments", departmentService.getAllDepartments());
                     model.addAttribute("positions", positionService.getAllPositions());
                     model.addAttribute("pageTitle", "Add Employee");
-                    model.addAttribute("message", "Email " + emp.getUser().getEmail() + " already exists");
+                    model.addAttribute("message", "Email " + emp.getEmail() + " already exists");
                     model.addAttribute("flashType", "error");
                     return "new_employee";
                 }
+            }
+
+
+            // Create and save LeaveBalance for new employee
+            if (emp.getId() != null && isNewEmail) { // Only for new employees
+                LeaveBalance leaveBalance = new LeaveBalance();
+                leaveBalance.setEmployee(emp);
+                lbService.saveLeaveBalance(leaveBalance);
             }
 
 
@@ -149,7 +134,7 @@ public class EmployeeController {
             return "redirect:/employees";
 
         } catch (Exception e) {
-            redirect.addFlashAttribute("message", "Save Error : " + e.getMessage());
+            redirect.addFlashAttribute("message", "Save Error : " + e.toString());
             redirect.addFlashAttribute("flashType", "error");
             return "redirect:/employees";
         }

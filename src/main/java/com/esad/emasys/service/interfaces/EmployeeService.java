@@ -1,4 +1,4 @@
-package com.esad.emasys.services;
+package com.esad.emasys.service.interfaces;
 
 import com.esad.emasys.model.Employee;
 
@@ -11,7 +11,7 @@ public interface EmployeeService {
 
     Employee getEmployee(Integer id);
 
-    Employee getEmployeeUserId(Integer user_id);
+    Employee getEmployee(String email);
 
     void deleteEmployee(Integer id);
 

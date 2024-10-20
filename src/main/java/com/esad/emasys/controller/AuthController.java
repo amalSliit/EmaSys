@@ -3,9 +3,7 @@ package com.esad.emasys.controller;
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.LoginRequest;
 import com.esad.emasys.model.LoginResponse;
-import com.esad.emasys.model.User;
-import com.esad.emasys.security.JwtUtil;
-import com.esad.emasys.services.AuthService;
+import com.esad.emasys.service.interfaces.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,11 +19,8 @@ public class AuthController {
     @Autowired
     private AuthService authService;
 
-    private final JwtUtil jwtUtil;
-
     public AuthController(AuthService authService) {
         this.authService = authService;
-        this.jwtUtil = new JwtUtil();
     }
 
     @PostMapping("/login")
@@ -41,13 +36,13 @@ public class AuthController {
 
         if (authenticated) {
             Employee authEmp = authService.getEmployee(logEmail);
-            String token = jwtUtil.generateToken(authEmp.getId());
+            String token = "40";
 
-            return ResponseEntity.status(HttpStatus.ACCEPTED)
+            return ResponseEntity.status(HttpStatus.OK)
                     .body(new LoginResponse(authEmp, "Login Successful", token));
         } else {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                    .body(new LoginResponse(null, "Invalid credentials", null));
+            return ResponseEntity.status(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
+                    .body(new LoginResponse(null, "An unregistered Email. Use office gmail account for Contact HR.", null));
         }
     }
 

@@ -1,4 +1,4 @@
-package com.esad.emasys.services;
+package com.esad.emasys.service.interfaces;
 
 import com.esad.emasys.model.Position;
 import com.esad.emasys.repository.PositionRepository;

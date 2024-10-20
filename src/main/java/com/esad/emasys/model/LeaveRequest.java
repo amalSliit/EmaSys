@@ -1,114 +1,57 @@
 package com.esad.emasys.model;
 
-import jakarta.persistence.*;
-import java.time.LocalDateTime;
-
-@Entity
-@Table(name = "leave_requests")
 public class LeaveRequest {
+    private Integer employeeId;
+    private String startDate;
+    private String endDate;
+    private String reason;
+    private Leave.LeaveType type;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", nullable = false)
-    private Employee employee;
-
-    @ManyToOne
-    @JoinColumn(name = "manager_id")
-    private Manager manager;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private LeaveType leaveType;
-
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Status status;
-
-    @Column(name = "request_date", nullable = false, updatable = false)
-    private LocalDateTime requestDate;
-
-    // Getters and Setters
-
-    public int getId() {
-        return id;
+    public LeaveRequest(Integer employeeId, String startDate, String endDate, String reason, Leave.LeaveType type) {
+        this.employeeId = employeeId;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.reason = reason;
+        this.type = type;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Integer getEmployeeId() {
+        return employeeId;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public void setEmployeeId(Integer employeeId) {
+        this.employeeId = employeeId;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
-    public Manager getManager() {
-        return manager;
-    }
-
-    public void setManager(Manager manager) {
-        this.manager = manager;
-    }
-
-    public LeaveType getLeaveType() {
-        return leaveType;
-    }
-
-    public void setLeaveType(LeaveType leaveType) {
-        this.leaveType = leaveType;
-    }
-
-    public LocalDateTime getStartDate() {
+    public String getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(LocalDateTime startDate) {
+    public void setStartDate(String startDate) {
         this.startDate = startDate;
     }
 
-    public LocalDateTime getEndDate() {
+    public String getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(LocalDateTime endDate) {
+    public void setEndDate(String endDate) {
         this.endDate = endDate;
     }
 
-    public Status getStatus() {
-        return status;
+    public String getReason() {
+        return reason;
     }
 
-    public void setStatus(Status status) {
-        this.status = status;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
-    public LocalDateTime getRequestDate() {
-        return requestDate;
+    public Leave.LeaveType getType() {
+        return type;
     }
 
-    public void setRequestDate(LocalDateTime requestDate) {
-        this.requestDate = requestDate;
-    }
-
-    @PrePersist
-    public void prePersist() {
-        this.requestDate = LocalDateTime.now();
-    }
-
-    public enum LeaveType {
-        SICK, ANNUAL, OTHER
-    }
-
-    public enum Status {
-        PENDING, APPROVED, REJECTED
+    public void setType(Leave.LeaveType type) {
+        this.type = type;
     }
 }

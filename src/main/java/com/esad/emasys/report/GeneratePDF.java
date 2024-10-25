@@ -1,7 +1,7 @@
 package com.esad.emasys.report;
 
+import com.esad.emasys.dto.LeaveDTO;
 import com.esad.emasys.model.Employee;
-import com.esad.emasys.model.LeaveRequest;
 import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
@@ -13,7 +13,7 @@ import java.io.ByteArrayOutputStream;
 import java.util.List;
 
 public class GeneratePDF {
-    public  static byte[] generatePDF(List<Employee> employeeData, List<LeaveRequest> employeeLeaves){
+    public  static byte[] generatePDF(List<Employee> employeeData, List<LeaveDTO> employeeLeaves){
     ByteArrayOutputStream out = new ByteArrayOutputStream();
         PdfWriter pdfWriter = new PdfWriter(out);
         PdfDocument pdfDocument= new PdfDocument(pdfWriter);
@@ -30,7 +30,7 @@ public class GeneratePDF {
 
         for(Employee employee:employeeData){
             table.addCell(new Cell().add(new Paragraph(employee.getFirstName()+" "+employee.getLastName())));
-            table.addCell(new Cell().add(new Paragraph(employee.getUser().getEmail())));
+            table.addCell(new Cell().add(new Paragraph(employee.getEmail())));
             table.addCell(new Cell().add(new Paragraph(employee.getDepartment().getName())));
             table.addCell(new Cell().add(new Paragraph(employee.getPosition().getTitle())));
         }
@@ -46,12 +46,12 @@ public class GeneratePDF {
         table2.addCell(new Cell().add(new Paragraph("Leave Type")));
         table2.addCell(new Cell().add(new Paragraph("Status")));
 
-        for(LeaveRequest leaveRequest:employeeLeaves){
-            table2.addCell(new Cell().add(new Paragraph(String.valueOf(leaveRequest.getRequestDate()))));
+        for(LeaveDTO leaveRequest:employeeLeaves){
+            table2.addCell(new Cell().add(new Paragraph(String.valueOf(leaveRequest.getRequestedDate()))));
             table2.addCell(new Cell().add(new Paragraph(String.valueOf(leaveRequest.getStartDate()))));
             table2.addCell(new Cell().add(new Paragraph(String.valueOf(leaveRequest.getEndDate()))));
             table2.addCell(new Cell().add(new Paragraph(String.valueOf(leaveRequest.getLeaveType()))));
-            table2.addCell(new Cell().add(new Paragraph(String.valueOf(leaveRequest.getStatus()))));
+            table2.addCell(new Cell().add(new Paragraph(String.valueOf(leaveRequest.getLeaveStatus()))));
         }
 
         document.add(table2);

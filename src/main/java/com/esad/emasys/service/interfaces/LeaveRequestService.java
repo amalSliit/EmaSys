@@ -1,7 +1,7 @@
-package com.esad.emasys.services;
+package com.esad.emasys.service.interfaces;
 
-import com.esad.emasys.model.LeaveRequest;
-import com.esad.emasys.repository.LeaveRequestRepository;
+import com.esad.emasys.model.Leave;
+import com.esad.emasys.repository.LeaveRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,27 +11,27 @@ import java.util.Optional;
 @Service
 public class LeaveRequestService {
     @Autowired
-    LeaveRequestRepository leaveRequestRepository;
+    LeaveRepository leaveRepository;
 
-    public List<LeaveRequest> getAllLeaveRequests() {
-        return leaveRequestRepository.findAll();
+    public List<Leave> getAllLeaveRequests() {
+        return leaveRepository.findAll();
     }
 
-    public Optional<LeaveRequest> getLeaveRequestByID(int id) {
-        return leaveRequestRepository.findById(id);
+    public Optional<Leave> getLeaveRequestByID(int id) {
+        return leaveRepository.findById(id);
     }
 
-    public Optional<LeaveRequest> acceptLeaveRequest(int id) {
-        return leaveRequestRepository.findById(id).map(leaveRequest -> {
-            leaveRequest.setStatus(LeaveRequest.Status.APPROVED);
-            return leaveRequestRepository.save(leaveRequest);
+    public Optional<Leave> acceptLeaveRequest(int id) {
+        return leaveRepository.findById(id).map(leave -> {
+            leave.setStatus(Leave.LeaveStatus.APPROVED);
+            return leaveRepository.save(leave);
         });
     }
 
-    public Optional<LeaveRequest> declineLeaveRequest(int id) {
-        return leaveRequestRepository.findById(id).map(leaveRequest -> {
-            leaveRequest.setStatus(LeaveRequest.Status.REJECTED);
-            return leaveRequestRepository.save(leaveRequest);
+    public Optional<Leave> declineLeaveRequest(int id) {
+        return leaveRepository.findById(id).map(leave -> {
+            leave.setStatus(Leave.LeaveStatus.REJECTED);
+            return leaveRepository.save(leave);
         });
     }
 

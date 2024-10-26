@@ -4,12 +4,12 @@ import com.esad.emasys.model.Department;
 import com.esad.emasys.model.Employee;
 import com.esad.emasys.model.LeaveBalance;
 import com.esad.emasys.model.Position;
-import com.esad.emasys.repository.LeaveBalanceRepository;
-import com.esad.emasys.service.interfaces.DepartmentService;
 import com.esad.emasys.service.impl.EmployeeServiceImpl;
+import com.esad.emasys.service.interfaces.DepartmentService;
 import com.esad.emasys.service.interfaces.LeaveBalanceService;
 import com.esad.emasys.service.interfaces.PositionService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -108,6 +108,7 @@ public class EmployeeController {
             } else {
                 if (isNewEmail) {
                     // Create new user
+                    emp.setPassword(new BCryptPasswordEncoder().encode(emp.getEmail())); //email convert as pw
                     empServies.saveEmployee(emp);
                 } else {
                     model.addAttribute("empNew", emp);

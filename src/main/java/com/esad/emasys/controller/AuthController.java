@@ -36,10 +36,10 @@ public class AuthController {
 
         if (authenticated) {
             Employee authEmp = authService.getEmployee(logEmail);
-            String token = "40";
+            String encode = authEmp.getPassword();
 
             return ResponseEntity.status(HttpStatus.OK)
-                    .body(new LoginResponse(authEmp, "Login Successful", token));
+                    .body(new LoginResponse(authEmp, "Login Successful", encode));
         } else {
             return ResponseEntity.status(HttpStatus.NON_AUTHORITATIVE_INFORMATION)
                     .body(new LoginResponse(null, "An unregistered Email. Use office gmail account for Contact HR.", null));

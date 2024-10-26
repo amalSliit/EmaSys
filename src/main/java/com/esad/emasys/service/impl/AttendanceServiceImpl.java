@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.Duration;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -79,7 +80,9 @@ public class AttendanceServiceImpl implements AttendanceService {
             return new AttendanceStatusResponse(attendance.getStatus(), null, attendance.getCheckOutTime(),
                     attendance.getAttendanceDate(), attendance.getTotalHours());
         } else {
-            throw null;
+            //fresh
+            return new AttendanceStatusResponse(Attendance.Status.CHECK_OUT, LocalDateTime.now(), LocalDateTime.now(),
+                    LocalDateTime.now(), 0.0f);
         }
     }
 }

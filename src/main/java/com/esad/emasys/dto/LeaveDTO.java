@@ -22,7 +22,7 @@ public class LeaveDTO {
     }
 
     public LeaveDTO(Long id, LocalDate startDate, LocalDate endDate,
-                    LocalDateTime requestedDate, String reason, String leaveType, String leaveStatus) {
+                    LocalDateTime requestedDate, String reason, String leaveType, String  leaveStatus) {
         this.id = id;
         this.startDate = startDate;
         this.endDate = endDate;
